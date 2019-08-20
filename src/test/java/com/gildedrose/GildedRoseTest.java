@@ -1,17 +1,35 @@
 package com.gildedrose;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
+import static com.gildedrose.ItemTestHelper.assertItemEquals;
+
 public class GildedRoseTest {
-
+    
     @Test
-    public void foo() {
-        Item[] items = new Item[] { new Item("foo", 0, 0) };
-        GildedRose app = new GildedRose(items);
+    public void sellInDateShouldIncreaseButQualityShouldBeZero() {
+        GildedRose app = new GildedRose(new Item("foo", 0, 0));
+        
         app.updateQuality();
-        assertEquals("foo", app.items[0].name);
+        
+        assertItemEquals(app.getItems()[0], new Item("foo", -1, 0));
     }
-
+    
+    @Test
+    public void qualityShouldDecreaseWhenSellInDecreases() {
+        GildedRose app = new GildedRose(new Item("foo", 10, 10));
+        
+        app.updateQuality();
+        
+        assertItemEquals(app.getItems()[0], new Item("foo", 9, 9));
+    }
+    
+    @Test
+    public void qualityShouldDecreaseFasterWhenSellInExpires() {
+        GildedRose app = new GildedRose(new Item("foo", 0, 10));
+        
+        app.updateQuality();
+        
+        assertItemEquals(app.getItems()[0], new Item("foo", -1, 8));
+    }
 }
