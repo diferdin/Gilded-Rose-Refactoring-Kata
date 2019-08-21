@@ -4,7 +4,8 @@ import com.gildedrose.GildedRose;
 import org.junit.Test;
 
 import static com.gildedrose.ItemBuilder.newItem;
-import static com.gildedrose.ItemTestHelper.assertItemEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class AgedBrieQualityControlTest {
     
@@ -12,9 +13,8 @@ public class AgedBrieQualityControlTest {
     public void shouldIncreaseQualityAsItGetsOlder() {
         GildedRose gildedRose = new GildedRose(newItem().withName("Aged Brie").withSellIn(10).withQuality(10).build());
         gildedRose.updateQuality();
-        
-        
-        assertItemEquals(gildedRose.getItems()[0], newItem().withName("Aged Brie").withSellIn(9).withQuality(11).build());
+    
+        assertThat(gildedRose.getItems()[0].quality, is(11));
     }
     
     @Test
@@ -22,7 +22,7 @@ public class AgedBrieQualityControlTest {
         GildedRose gildedRose = new GildedRose(newItem().withName("Aged Brie").withSellIn(10).withQuality(50).build());
         gildedRose.updateQuality();
     
-        assertItemEquals(gildedRose.getItems()[0], newItem().withName("Aged Brie").withSellIn(9).withQuality(50).build());
+        assertThat(gildedRose.getItems()[0].quality, is(50));
         
     }
     

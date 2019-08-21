@@ -3,34 +3,37 @@ package com.gildedrose;
 import org.junit.Test;
 
 import static com.gildedrose.ItemBuilder.newItem;
-import static com.gildedrose.ItemTestHelper.assertItemEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class GildedRoseTest {
     
+    private static final String GENERAL_ITEM_NAME = "eneral item";
+    
     @Test
-    public void sellInDateShouldIncreaseButQualityShouldBeZero() {
-        GildedRose app = new GildedRose(newItem().withName("myItem").withSellIn(0).withQuality(0).build());
+    public void qualityShouldNotDecreaseBelowZero() {
         
-        app.updateQuality();
+        GildedRose gildedRose = new GildedRose(newItem().withName(GENERAL_ITEM_NAME).withSellIn(0).withQuality(0).build());
+        gildedRose.updateQuality();
         
-        assertItemEquals(app.getItems()[0], newItem().withName("myItem").withSellIn(-1).withQuality(0).build());
+        assertThat(gildedRose.getItems()[0].quality, is(0));
     }
     
     @Test
     public void qualityShouldDecreaseWhenSellInDecreases() {
-        GildedRose app = new GildedRose(newItem().withName("myItem").withSellIn(10).withQuality(10).build());
         
-        app.updateQuality();
+        GildedRose gildedRose = new GildedRose(newItem().withName(GENERAL_ITEM_NAME).withSellIn(13).withQuality(10).build());
+        gildedRose.updateQuality();
         
-        assertItemEquals(app.getItems()[0], newItem().withName("myItem").withSellIn(9).withQuality(9).build());
+        assertThat(gildedRose.getItems()[0].quality, is(9));
     }
     
     @Test
     public void qualityShouldDecreaseFasterWhenSellInExpires() {
-        GildedRose app = new GildedRose(newItem().withName("myItem").withSellIn(0).withQuality(10).build());
-        
-        app.updateQuality();
-        
-        assertItemEquals(app.getItems()[0], newItem().withName("myItem").withSellIn(-1).withQuality(8).build());
+    
+        GildedRose gildedRose = new GildedRose(newItem().withName(GENERAL_ITEM_NAME).withSellIn(0).withQuality(10).build());
+        gildedRose.updateQuality();
+    
+        assertThat(gildedRose.getItems()[0].quality, is(8));
     }
 }
