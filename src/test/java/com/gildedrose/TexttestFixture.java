@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static com.gildedrose.ItemBuilder.newItem;
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 
@@ -27,18 +28,20 @@ public class TexttestFixture {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("OMGHAI!\n");
         
-        Item[] items = new Item[] {
-                new Item("+5 Dexterity Vest", 10, 20), //
-                new Item("Aged Brie", 2, 0), //
-                new Item("Elixir of the Mongoose", 5, 7), //
-                new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
-                new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-                new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-                // this conjured item does not work properly yet
-                new Item("Conjured Mana Cake", 3, 6) };
+        Item[] items = new Item[]{
         
+                newItem().withName("+5 Dexterity Vest").withSellIn(10).withQuality(20).build(),
+                newItem().withName("Aged Brie").withSellIn(2).withQuality(0).build(),
+                newItem().withName("Elixir of the Mongoose").withSellIn(5).withQuality(7).build(),
+                newItem().withName("Sulfuras, Hand of Ragnaros").withSellIn(0).withQuality(80).build(),
+                newItem().withName("Sulfuras, Hand of Ragnaros").withSellIn(-1).withQuality(80).build(),
+                newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(15).withQuality(20).build(),
+                newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(10).withQuality(49).build(),
+                newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(5).withQuality(49).build(),
+        
+                // this conjured newItem does not work properly yet
+                new ItemBuilder().withName("Conjured Mana Cake").withSellIn(3).withQuality(6).build()
+        };
         
         GildedRose gildedRose = new GildedRose(items);
         
