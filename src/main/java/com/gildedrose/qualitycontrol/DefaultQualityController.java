@@ -19,7 +19,7 @@ public class DefaultQualityController implements QualityController {
     
     private int standardQualityDecreaseFor(Item item) {
         
-        return item.sellIn < 0 ? STANDARD_QUALITY_DECREASE * 2 : STANDARD_QUALITY_DECREASE;
+        return item.sellIn <= 0 ? STANDARD_QUALITY_DECREASE * 2 : STANDARD_QUALITY_DECREASE;
         
     }
 }

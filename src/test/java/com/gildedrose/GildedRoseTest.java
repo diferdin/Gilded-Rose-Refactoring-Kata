@@ -2,26 +2,25 @@ package com.gildedrose;
 
 import com.gildedrose.qualitycontrol.DefaultQualityController;
 import com.gildedrose.qualitycontrol.QualityControlFactory;
-import com.gildedrose.sellincontrol.SellinController;
+import com.gildedrose.sellincontrol.SellInController;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static com.gildedrose.ItemBuilder.newItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class GildedRoseTest {
     
-    private static final String GENERAL_ITEM_NAME = "General item";
-    
-    @Mock private SellinController sellinController;
+    @Mock private SellInController sellinController;
     @Mock private QualityControlFactory qualityControlFactory;
     @Mock private DefaultQualityController defaultQualityController;
     
@@ -40,23 +39,15 @@ public class GildedRoseTest {
     }
     
     @Test
-    public void qualityShouldNotDecreaseBelowZero() {
-        
+    public void shouldUpdateSellIn() {
         gildedRose.updateQualityFor(Arrays.asList(generalItem1, generalItem2));
-        verifyQualityUpdateFor(Arrays.asList(generalItem1, generalItem2));
-        
-        
-        assertThat(gildedRose.getItems()[0].quality, is(0));
+        verifySellInUpdateFor(Arrays.asList(generalItem1, generalItem2));
     }
     
     @Test
-    public void qualityShouldDecreaseFasterWhenSellInExpires() {
-    
-        
+    public void shouldUpdateQuality() {
         gildedRose.updateQualityFor(Arrays.asList(generalItem1, generalItem2));
         verifyQualityUpdateFor(Arrays.asList(generalItem1, generalItem2));
-        verifySellInUpdateFor(Arrays.asList(generalItem1, generalItem2));
-        
     }
     
     private void verifySellInUpdateFor(List<Item> items) {

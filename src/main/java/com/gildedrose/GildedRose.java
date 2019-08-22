@@ -2,18 +2,16 @@ package com.gildedrose;
 
 import com.gildedrose.qualitycontrol.QualityControlFactory;
 import com.gildedrose.qualitycontrol.QualityController;
-import com.gildedrose.sellincontrol.SellinController;
+import com.gildedrose.sellincontrol.SellInController;
 
 import java.util.List;
 
 public class GildedRose {
     
-    private SellinController sellinController;
+    private SellInController sellinController;
     private QualityControlFactory qualityControlFactory;
     
-    private Item[] items;
-    
-    public GildedRose(SellinController sellinController,  QualityControlFactory qualityControlFactory) {
+    public GildedRose(SellInController sellinController, QualityControlFactory qualityControlFactory) {
         this.sellinController = sellinController;
         this.qualityControlFactory = qualityControlFactory;
     }
@@ -33,10 +31,5 @@ public class GildedRose {
     
     private void updateSellInFor(Item item) {
         sellinController.updateSellInFor(item);
-    }
-    
-    
-    public Item[] getItems() {
-        return items;
     }
 }

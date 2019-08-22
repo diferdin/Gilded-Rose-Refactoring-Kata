@@ -5,31 +5,21 @@ import com.gildedrose.Item;
 public class ConjuredQualityController implements QualityController {
     
     private static final int CONJURED_QUALITY_DECREASE = STANDARD_QUALITY_DECREASE * 2;
-    private static final int CONJURED_ZERO_DECREASE = 0;
     
     @Override
     public void updateQualityFor(Item conjuredItem) {
-        conjuredItem.quality = conjuredItem.quality - qualityDropFor(conjuredItem);
+        conjuredItem.quality = conjuredItem.quality - qualityDecreaseFor(conjuredItem);
     }
     
-    private int qualityDropFor(Item conjuredItem) {
+    private int qualityDecreaseFor(Item conjuredItem) {
         
-        if(sellInIsZero(conjuredItem)) {
-            return CONJURED_QUALITY_DECREASE;
-        } else if(sellInIsNegative(conjuredItem)) {
-            return conjuredItem.quality;
-        } else {
+        if(sellInIsPositive(conjuredItem)) {
             return STANDARD_QUALITY_DECREASE;
+        } else
+            return conjuredItem.sellIn == 0 ? CONJURED_QUALITY_DECREASE : conjuredItem.quality;
         }
         
-        
-    }
-    
-    private boolean sellInIsNegative(Item conjuredItem) {
-        return conjuredItem.sellIn < 0;
-    }
-    
-    private boolean sellInIsZero(Item conjuredItem) {
-        return conjuredItem.sellIn == 0;
+    private boolean sellInIsPositive(Item conjuredItem) {
+        return conjuredItem.sellIn > 0;
     }
 }

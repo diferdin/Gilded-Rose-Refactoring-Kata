@@ -1,7 +1,7 @@
 package com.gildedrose;
 
 import com.gildedrose.qualitycontrol.QualityControlFactory;
-import com.gildedrose.sellincontrol.SellinController;
+import com.gildedrose.sellincontrol.SellInController;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +20,6 @@ public class TexttestFixture {
     public void checkGoldMasterCompliance() throws IOException {
         
         String goldMasterResultString = new String(Files.readAllBytes(Paths.get("src/test/resources/goldMaster.txt")));
-        
         String currentResultString = buildCurrentResult().toString();
         
         assertEquals(goldMasterResultString, currentResultString);
@@ -35,7 +34,7 @@ public class TexttestFixture {
         
         List<Item> items = buildTestItems();
         
-        GildedRose gildedRose = new GildedRose(new SellinController(), new QualityControlFactory());
+        GildedRose gildedRose = new GildedRose(new SellInController(), new QualityControlFactory());
         
         for (int i = 0; i < 31; i++) {
             stringBuilder.append(format("-------- day %s --------%n", i));

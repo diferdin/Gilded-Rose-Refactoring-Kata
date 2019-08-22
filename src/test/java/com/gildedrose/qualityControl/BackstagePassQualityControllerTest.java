@@ -5,6 +5,7 @@ import com.gildedrose.qualitycontrol.BackstagePassQualityController;
 import org.junit.Test;
 
 import static com.gildedrose.ItemBuilder.newItem;
+import static com.gildedrose.qualitycontrol.QualityControlFactory.BACKSTAGE_PASS_NAME;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -20,7 +21,7 @@ public class BackstagePassQualityControllerTest {
     @Test
     public void shouldIncreaseQualityAsDaysPass() {
     
-        Item backstagePass = newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(TWENTY_DAYS).withQuality(10).build();
+        Item backstagePass = newItem().withName(BACKSTAGE_PASS_NAME).withSellIn(TWENTY_DAYS).withQuality(10).build();
         qualityControl.updateQualityFor(backstagePass);
     
         assertThat(backstagePass.quality, is(11));
@@ -30,7 +31,7 @@ public class BackstagePassQualityControllerTest {
     @Test
     public void qualityIncreaseShouldDoubleWhenSellInIsLessThanElevenDays() {
     
-        Item backstagePass =  newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(TEN_DAYS).withQuality(10).build();
+        Item backstagePass =  newItem().withName(BACKSTAGE_PASS_NAME).withSellIn(TEN_DAYS).withQuality(10).build();
         qualityControl.updateQualityFor(backstagePass);
     
         assertThat(backstagePass.quality, is(12));
@@ -40,7 +41,7 @@ public class BackstagePassQualityControllerTest {
     @Test
     public void qualityIncreaseShouldTripleWhenSellInIsLessThanSixDays() {
     
-        Item backstagePass = newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(FIVE_DAYS).withQuality(10).build();
+        Item backstagePass = newItem().withName(BACKSTAGE_PASS_NAME).withSellIn(FIVE_DAYS).withQuality(10).build();
         qualityControl.updateQualityFor(backstagePass);
         
         assertThat(backstagePass.quality, is(13));
@@ -50,7 +51,7 @@ public class BackstagePassQualityControllerTest {
     @Test
     public void qualityShouldDropToZeroAfterConcert() {
     
-        Item backstagePass = newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(ZERO_DAYS).withQuality(10).build();
+        Item backstagePass = newItem().withName(BACKSTAGE_PASS_NAME).withSellIn(ZERO_DAYS).withQuality(10).build();
         qualityControl.updateQualityFor(backstagePass);
     
         assertThat(backstagePass.quality, is(0));
@@ -60,7 +61,7 @@ public class BackstagePassQualityControllerTest {
     @Test
     public void qualityShouldNotExceedFifty() {
     
-        Item backstagePass = newItem().withName("Backstage passes to a TAFKAL80ETC concert").withSellIn(TEN_DAYS).withQuality(50).build();
+        Item backstagePass = newItem().withName(BACKSTAGE_PASS_NAME).withSellIn(TEN_DAYS).withQuality(50).build();
         qualityControl.updateQualityFor(backstagePass);
     
         assertThat(backstagePass.quality, is(50));

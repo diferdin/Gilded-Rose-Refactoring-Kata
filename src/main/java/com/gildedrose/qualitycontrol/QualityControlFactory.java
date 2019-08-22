@@ -11,7 +11,7 @@ public class QualityControlFactory {
     
     private enum SpecialItemQualityControl {
     
-        AGED_BRIE("Aged Brie", new AgedBrieQualityController()),
+        AGED_BRIE(AGED_BRIE_NAME, new AgedBrieQualityController()),
         CONJURED(CONJURED_NAME, new ConjuredQualityController()),
         BACKSTAGE_PASS(BACKSTAGE_PASS_NAME, new BackstagePassQualityController()),
         SULFURAS(SULFURAS_NAME, new SulfurasQualityController());

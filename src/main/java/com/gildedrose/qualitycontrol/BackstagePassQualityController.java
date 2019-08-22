@@ -10,7 +10,7 @@ public class BackstagePassQualityController implements QualityController {
     private static final int DOUBLE_INCREASE = 2;
     private static final int STANDARD_QUALITY_INCREASE = 1;
     
-    private static final int ELEVEN_DAYS = 11;
+    private static final int TEN_DAYS = 10;
     private static final int FIVE_DAYS = 5;
     
     @Override
@@ -41,7 +41,7 @@ public class BackstagePassQualityController implements QualityController {
     }
     
     private boolean concertWithinSixToTenDays(Item backstagePass) {
-        return backstagePass.sellIn <= ELEVEN_DAYS;
+        return backstagePass.sellIn <= TEN_DAYS && backstagePass.sellIn > FIVE_DAYS;
     }
     
     
